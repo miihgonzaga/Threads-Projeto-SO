@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < x; j++) 
         {
             int cinza = imagem[i][j];    
-            fprintf(fp, "%d %d %d ", cinza, cinza, cinza);
+            fprintf(fp, "%d %d %d ", cinza, cinza, cinza);//em escala de cinza o RGB são iguais
         }
     fprintf(fp, "\n");
     }        
