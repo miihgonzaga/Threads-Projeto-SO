@@ -13,6 +13,7 @@ typedef struct {
 
 void *MakePixel (void *threaddata)
 {
+    //thread pega as informações do pixel e faz a conversão 
     ThreadData tdata = *((ThreadData *)threaddata); 
     tdata.Imagem[tdata.y][tdata.x] =  tdata.R*0.30 + tdata.G*0.59 + tdata.B*0.11;
     return NULL;
@@ -75,17 +76,19 @@ int main(int argc, char *argv[]) {
     }
     for (int i = 0; i < NUMBER_THREAD; i++)    
     {
-    pthread_join(threads[i], NULL);
+        //join para esperar todas as conversões acabarem
+        pthread_join(threads[i], NULL);
     }
-    for (int i = 0; i < y; i++) {
-    for (int j = 0; j < x; j++) {
-        int cinza = imagem[i][j];
-        
-        fprintf(fp, "%d %d %d ", cinza, cinza, cinza);
-    }
+
+    for (int i = 0; i < y; i++) 
+    {
+        for (int j = 0; j < x; j++) 
+        {
+            int cinza = imagem[i][j];    
+            fprintf(fp, "%d %d %d ", cinza, cinza, cinza);
+        }
     fprintf(fp, "\n");
-}
-        
+}        
     fclose(fp);
     fclose(arqin);
     printf("Imagem PPM criada com sucesso!\n");

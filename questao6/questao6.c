@@ -46,10 +46,11 @@ void merge(int vetor[], int comeco, int meio, int fim) {
 }
 
 void *ThreadMergeSort(void *threaddata){
+    //implementação recursiva do mergesort
     ThreadData tdata = *((ThreadData *)threaddata); //pego os valores necessários pra execução pra thread
     if (tdata.comeco < tdata.fim) {
         int meio = (tdata.fim+tdata.comeco)/2;
-        //crio as estruturas que serão passadas para a esquerda e a direita
+        //crio as estruturas que serão passadas para a esquerda e a direita e atribuo os valores
         ThreadData *tdata_left = malloc(sizeof(ThreadData)); 
         ThreadData *tdata_right = malloc(sizeof(ThreadData));
         tdata_left->vetor = tdata.vetor;
@@ -60,7 +61,7 @@ void *ThreadMergeSort(void *threaddata){
         tdata_right->fim = tdata.fim;
 
         pthread_t threads[2];
-        
+        //crio 2 threads em que uma enxerga a direita do vetor, e a outra a esquerda
         pthread_create(&threads[0], NULL, ThreadMergeSort, (void *) tdata_left);
         pthread_create(&threads[1], NULL, ThreadMergeSort, (void *) tdata_right);
         //join para a thread pai esperar os filhos terminarem
@@ -75,25 +76,39 @@ void *ThreadMergeSort(void *threaddata){
 
 int main()
 {   
-    int tam;
-    printf("insira o tamanho do vetor que deseja ordenar:");
-    scanf("%d", &tam);
-    int valores[tam];
-    printf("insira o array que deseja ordernar (separando os números por espaços e sem repetições):");
-    for (int i = 0; i < tam; i++)
+    int tam = 0;
+    int entrada;
+    int *valores;
+    printf("insira o array que deseja ordernar(em uma linha só):");
+    while(scanf("%d", &entrada)!= EOF) 
     {
-        scanf("%d", &valores[i]);
+        tam++;
+        int *temp = realloc(valores, tam * sizeof(int));
+        if (temp != NULL)
+        {
+            valores = temp;
+        }
+        valores[tam-1] = entrada;
     }
-    ThreadData data = {valores, 0, tam-1};
-    pthread_t thread[0];
-    pthread_create(&thread[0], NULL, ThreadMergeSort, (void *) &data);
-    pthread_join(thread[0], NULL);
-    printf("lista ordenada: ");
-    for (int i = 0; i < tam; i++)
+    //caso por algum motivo o vetor seja nulo (entrada inadequada)
+    if (valores != NULL)
     {
-        printf("%d ", data.vetor[i]);
+        //crio a thread "pai" que "enxerga" o vetor inteiro
+        ThreadData data = {valores, 0, tam-1};
+        pthread_t thread[0];
+        pthread_create(&thread[0], NULL, ThreadMergeSort, (void *) &data);
+        pthread_join(thread[0], NULL);
+        printf("lista ordenada: ");
+        for (int i = 0; i < tam; i++)
+        {
+            printf("%d ", data.vetor[i]);
+        }
+        printf("\n");
     }
-    printf("\n");
+    else
+    {
+        printf("\nvetor nulo, erro de execução\n");
+    }
     pthread_exit(NULL);
     return 0;
 }
