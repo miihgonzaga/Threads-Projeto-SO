@@ -1,0 +1,19 @@
+TESTE 1 - Colisão massiva no mesmo bucket
+
+16 aa 0 bb 0 aa 1 bb 2 aa 0 bb 0 aa 2 bb 1 aa 0 bb 0 aa 1 bb 2 aa 0 bb 0 aa2 bb 1
+
+TESTE 2 - Remoção e busca de chave inexistente sob concorrência
+
+10 hello 0 hello 0 hello 2 hello 2 hello 1 hello 0 hello 2 hello 1 hello 1 hello 2
+
+Teste 3 - Insert/Remove/Search na mesma chave (race condition clássica)
+
+12 chave 0 chave 1 chave 2 chave 0 chave 2 chave 0 chave 1 chave 2 chave 0 chave 1 chave 2 chave 2 chave 0 chave 2 chave 0
+
+TESTE 4 - Colisão em todos os buckets ao mesmo tempo
+
+20 ha 0 ib 0 jc 0 kd 0 le 0 mf 0 ng 0 oh 0 ha 1 ib 2 jc 1 kd 2 le 1 mf 2 ng 1 oh 2 ha 0 ib 0 jc 0 kd 0
+
+Teste 5 - Volume máximo, chaves variadas, operações mistas
+
+20 abc 0 bca 0 cab 0 abc 1 bca 2 cab 1 abc 0 bca 0 cab 0 abc 2 bca 1 cab 2 abc 0 bca 0 abc 1 bca 2 cab 0 abc 2 cab 1 abc 0
