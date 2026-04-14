@@ -247,9 +247,9 @@ int main(){ // thread principal
     //lê os três arquivos usando a funcao de lieutra
     pthread_t thread_leitura[3];
     char arquivos[3][100] = {
-        "arquivo1.txt", 
-        "arquivo2.txt", 
-        "arquivo3.txt"
+        "q2_arquivo1_entrada.txt", 
+        "q2_arquivo2_entrada.txt", 
+        "q2_arquivo3_entrada.txt"
     };
     
     // threads vao realizar a leitura dos arquivos:
