@@ -1,6 +1,6 @@
 TESTE 1 - Colisão massiva no mesmo bucket
 
-16 aa 0 bb 0 aa 1 bb 2 aa 0 bb 0 aa 2 bb 1 aa 0 bb 0 aa 1 bb 2 aa 0 bb 0 aa2 bb 1
+16 aa 0 bb 0 aa 1 bb 2 aa 0 bb 0 aa 2 bb 1 aa 0 bb 0 aa 1 bb 2 aa 0 bb 0 aa 2 bb 1
 
 TESTE 2 - Remoção e busca de chave inexistente sob concorrência
 
