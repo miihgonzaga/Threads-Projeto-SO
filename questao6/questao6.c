@@ -83,7 +83,7 @@ int main()
     int *valores = NULL;
     char c;
     int entrada_existe = 1;
-    printf("insira o array que deseja ordernar(em uma linha só):");
+    printf("insira o array que deseja ordernar(em uma linha só, sem espaço no final):");
     while(entrada_existe && scanf("%d%c", &entrada, &c)!= EOF) //enquanto ainda ouver entrada, verifico primeiro a entrada_existe para depois scanear
     {
         tam++;
