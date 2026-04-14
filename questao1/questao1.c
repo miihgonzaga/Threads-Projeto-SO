@@ -1,9 +1,26 @@
+/* QUESTAO 1:
+    OBJETIVO: converter imagens coloridas em tons de cinza
+    
+    utiliza-se um arquivo ppm e cada pixel possui 3 valores (modelo RGB)
+        o arquivo contém:
+        1a linha: o número de identificação do formato
+        2a linha: dimensoes (qtd de colunas) (qtd de linhas)
+        3a linha: número max. pra cada cor
+        4a linha em diante: valor das cores por pixel 
+            (preenchimento por linha)
+
+    a conversão é realizada por múltiplas threads
+    depois de converter toda imagem 
+    -> salvar num arquivo com o RGB dos tons de cinza calculado pra cada pixel 
+
+*/
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-//para testar o código com outra imagem, coloque o ppm na pasta da questão e o nome do arquivo na linha 23
+//para testar o código com outra imagem, coloque o ppm na pasta da questão e o nome do arquivo na linha 41
 
 typedef struct { //struct que leva as informações de cada pixel e o poteiro que defini a imagem completa
     int R, G, B;
@@ -21,7 +38,7 @@ void *MakePixel (void *threaddata)
 
 
 int main(int argc, char *argv[]) {
-    FILE *arqin = fopen("questao1_SO.ppm", "r"); //pego o arquivo que será lido
+    FILE *arqin = fopen("q1_arquivo1_entrada_RGB.ppm", "r"); //pego o arquivo que será lido
     if (arqin == NULL) {
         printf("Erro ao abrir o arquivo de entrada!\n");
         return 1;
@@ -32,7 +49,7 @@ int main(int argc, char *argv[]) {
     int cor;
     char letra_magica[3];
 
-    FILE *fp = fopen("preto_e_branco.ppm", "w"); // Cria o arquivo
+    FILE *fp = fopen("q1_arquivo1_saida_cinza.ppm", "w"); // Cria o arquivo
     
     //scan dos atributos iniciais da imagem
 
