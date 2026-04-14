@@ -14,7 +14,8 @@ void merge(int vetor[], int comeco, int meio, int fim) {
     int com1 = comeco, com2 = meio+1, comAux = 0, tam = fim-comeco+1;
     int *vetAux;
     vetAux = (int*)malloc(tam * sizeof(int));
-    printf("entrei no merge, comeco: %d fim: %d\n\n", comeco, fim);
+    // print de debug
+    // printf("entrei no merge, comeco: %d fim: %d\n\n", comeco, fim);
     while(com1 <= meio && com2 <= fim){
         if(vetor[com1] < vetor[com2]) {
             vetAux[comAux] = vetor[com1];
@@ -79,7 +80,7 @@ int main()
 {   
     int tam = 0;
     int entrada;
-    int *valores;
+    int *valores = NULL;
     char c;
     int entrada_existe = 1;
     printf("insira o array que deseja ordernar(em uma linha só):");
@@ -99,10 +100,10 @@ int main()
     {
         //passo os dados para a estrutura
         ThreadData data = {valores, 0, tam-1};
-        pthread_t thread[0];
+        pthread_t thread;
         //crio a thread "pai" que "enxerga" o vetor inteiro
-        pthread_create(&thread[0], NULL, ThreadMergeSort, (void *) &data);
-        pthread_join(thread[0], NULL);//espero terminar a execução
+        pthread_create(&thread, NULL, ThreadMergeSort, (void *) &data);
+        pthread_join(thread, NULL);//espero terminar a execução
         //printo a lista ordenada
         printf("lista ordenada: ");
         for (int i = 0; i < tam; i++)
