@@ -1,0 +1,20 @@
+2
+ALW476 Paris 19:00
+1
+QWE932 Recife 21:00
+5
+SSK210 Madri 16:30
+4
+TRE789 Londres 14:15
+6
+BVC321 Roma 22:00
+3
+XCV567 Amsterda 11:45
+7
+BNH901 Bruxelas 09:30
+1
+MNB456 Viena 23:15
+2
+FGH678 Praga 08:00
+5
+JKL345 Budapeste 19:30
