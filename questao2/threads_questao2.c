@@ -81,7 +81,7 @@ void leitura_arquivos(const char *arquivo_nome) {
     int num_linha; 
     char info[TAM_MAX_STRING];
 
-    while (fscanf(f, "%d", &num_linha) == 1) { // condicao de leitura até o fim do arquivo
+    while (fscanf(f, "%d ", &num_linha) == 1) { // condicao de leitura até o fim do arquivo
         fgets(info, TAM_MAX_STRING, f); //guarda a informacao na variavel info
         
         //retirar \n do final da string:
@@ -166,7 +166,7 @@ int main(){ // thread principal
     printf("\033[H"); // colocar o cursor no início
 
     for (int i = 0; i < L; i++) { //imprimir a tela  inicila
-        printf("%s\n", tela_inicial[i]);
+        printf("\033[31m%s\n\033[0m", tela_inicial[i]);
     }
     fflush(stdout); ///forçar a saida imediata no terminal 
 
@@ -195,7 +195,7 @@ int main(){ // thread principal
     for (int i = 0; i < L; i++) {
         pthread_mutex_destroy(&mutex_linha[i]);
     }
-
+    printf("\033[%d;1H", L+1); //posiciona o cursor depois da tabela
     pthread_exit(NULL); // encerra a main
     
 }
