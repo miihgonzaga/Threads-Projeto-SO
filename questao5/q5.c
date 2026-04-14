@@ -87,9 +87,9 @@ int main(){
             if(i==0) comparador = arg[i].valor;
             if(comparador==arg[i].valor) contagem++;}
         else {
-            printf("Não é um quadrado mágico");
+            printf("Não é um quadrado mágico\n");
             break;}
     }
-    if (contagem == 4) printf("É um quadrado mágico");
+    if (contagem == 4) printf("É um quadrado mágico\n");
 
 }
