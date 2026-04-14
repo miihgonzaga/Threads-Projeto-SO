@@ -1,0 +1,32 @@
+Teste 1 - quadrado mágico 3×3
+3
+2 7 6
+9 5 1
+4 3 8
+
+Teste 2 - quadrado mágico 4×4
+4
+16 2 3 13
+5 11 10 8
+9 7 6 12
+4 14 15 1
+
+Teste 3 - linhas iguais e colunas diferentes
+3
+1 2 3
+1 2 3
+1 2 3
+
+Teste 4 - diagonais quebram a magia
+3
+2 7 6
+9 5 1
+4 3 9
+
+Teste 6 - quadrado mágico 5×5
+5
+17 24 1 8 15
+23 5 7 14 16
+4 6 13 20 22
+10 12 19 21 3
+11 18 25 2 9
