@@ -5,7 +5,7 @@
 
 //para testar o código com outra imagem, coloque o ppm na pasta da questão e o nome do arquivo na linha 23
 
-typedef struct {
+typedef struct { //struct que leva as informações de cada pixel e o poteiro que defini a imagem completa
     int R, G, B;
     int x, y;
     int **Imagem;
@@ -15,17 +15,18 @@ void *MakePixel (void *threaddata)
 {
     //thread pega as informações do pixel e faz a conversão 
     ThreadData tdata = *((ThreadData *)threaddata); 
-    tdata.Imagem[tdata.y][tdata.x] =  tdata.R*0.30 + tdata.G*0.59 + tdata.B*0.11;
+    tdata.Imagem[tdata.y][tdata.x] =  tdata.R*0.30 + tdata.G*0.59 + tdata.B*0.11; //conversão para escala cinza
     return NULL;
 }
 
 
 int main(int argc, char *argv[]) {
-    FILE *arqin = fopen("questao1_SO.ppm", "r");
+    FILE *arqin = fopen("questao1_SO.ppm", "r"); //pego o arquivo que será lido
     if (arqin == NULL) {
         printf("Erro ao abrir o arquivo de entrada!\n");
         return 1;
     }
+    //variáveis que irão receber os inputs
     int x;
     int y;
     int cor;
@@ -35,38 +36,38 @@ int main(int argc, char *argv[]) {
     
     //scan dos atributos iniciais da imagem
 
-    fscanf(arqin,"%s", letra_magica);
-    fscanf(arqin,"%d %d", &x, &y);
-    fscanf(arqin,"%d", &cor);
+    fscanf(arqin,"%s", letra_magica); //formato do ppm
+    fscanf(arqin,"%d %d", &x, &y); //x e y são altura e largura
+    fscanf(arqin,"%d", &cor); //valor máximo da cor (normalmente vai ser 255)
 
     //uma thread por pixel, então o número de threads é x*y
     #define NUMBER_THREAD x*y
-    pthread_t threads[NUMBER_THREAD];
-    ThreadData *task_datas[NUMBER_THREAD];
+    pthread_t threads[NUMBER_THREAD]; //onde as threads ficam guardadas
+    ThreadData *task_datas[NUMBER_THREAD]; //array com a informação de cada pixel
     
     // Cabeçalho: P3, Largura, Altura, Max Color
     fprintf(fp, "%s\n%d %d\n%d\n", letra_magica, x, y, cor);
    
-    //arrayy onde vai ficar os a informação de cada pixel
+    //defino a matriz onde vai ficar os a informação de cada pixel
     int **imagem = (int **)malloc(y * sizeof(int *));
     for (int i = 0; i < y; i++)
     {
         imagem[i] = (int *)malloc(x * sizeof(int));
     }
-    //crio as variáveis de cor para então ir para as threads
+    //crio as variáveis de cor RED, GREEN E BLUE para então ir para as threads
     int R, G, B;
     for (int i = 0; i < NUMBER_THREAD; i++)
     {        
-        //passo todas as informações necessárias para a thread para um ponteiro com a estrutura usada
+        //passo todas as informações necessárias para o funcionamento da thread para um ponteiro
         task_datas[i] = (ThreadData *) malloc(sizeof(ThreadData)); 
-        task_datas[i]->y = i/x;
+        task_datas[i]->y = i/x; //x aqui é a largura 
         task_datas[i]->x = i%x;
-        fscanf(arqin,"%d %d %d", &R, &G, &B);
+        fscanf(arqin,"%d %d %d", &R, &G, &B); // pego a cor do pixel
         task_datas[i]->R = R;
         task_datas[i]->G = G;
         task_datas[i]->B = B;
-        task_datas[i]->Imagem = imagem;
-        int rc = pthread_create(&threads[i], NULL, MakePixel, (void *) task_datas[i]);      
+        task_datas[i]->Imagem = imagem; 
+        int rc = pthread_create(&threads[i], NULL, MakePixel, (void *) task_datas[i]); //crio a thread do pixel
         if (rc)
         {         
             printf("ERRO; codigo de retorno %d\n", rc);         
@@ -80,6 +81,7 @@ int main(int argc, char *argv[]) {
         pthread_join(threads[i], NULL);
     }
 
+    //após fazer a conversão, printo a imagem em preto e branco para o novo arquivo
     for (int i = 0; i < y; i++) 
     {
         for (int j = 0; j < x; j++) 
@@ -88,7 +90,7 @@ int main(int argc, char *argv[]) {
             fprintf(fp, "%d %d %d ", cinza, cinza, cinza);
         }
     fprintf(fp, "\n");
-}        
+    }        
     fclose(fp);
     fclose(arqin);
     printf("Imagem PPM criada com sucesso!\n");
